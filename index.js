@@ -14,14 +14,15 @@ let proxyInstance = proxy(proxyOptions);
 
 app.use('/wfcstatic/applications/navigator/html5', require("./html5"));
 
-app.use('/wfcstatic/applications/navigator/html5/peopleeditor', proxyInstance);
 
-app.use('/wfcstatic/applications/navigator/html5', express.static(config.staticPath));
-
-app.use(function(req, res, next){
-    console.log(req.url);
+app.use('/wfcstatic/applications/navigator/html5', function (req, res, next){
+    console.log(`${chalk.cyan('Static from: ')}${req.url}`);
+    next();
+}, express.static(config.staticPath), function (req, res, next){
+    console.log(`${chalk.white('Skip: ')}${req.url}`);
     next();
 });
+
 
 app.use('*', proxyInstance);
 app.listen(9000);
