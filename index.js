@@ -7,7 +7,6 @@ let app = express();
 let config = require("./config");
 
 
-app.use(logger('dev'));
 app.use('/wfcstatic/applications/navigator/html5', require("./html5"));
 
 let proxyOptions = {
